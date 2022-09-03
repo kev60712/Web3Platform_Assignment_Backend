@@ -24,6 +24,9 @@ public class CompensationRepo {
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
+    /**
+     * Compose query sql by different inputs
+     */
     public String composeSql(List<String> values, String sort){
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT * FROM CompensationRecord WHERE 1 = 1 ");
@@ -71,6 +74,7 @@ public class CompensationRepo {
         return queryResult.isEmpty() ? Optional.empty() : Optional.of(queryResult.get(0));
     }
 
+    // This function is for insert CompensationRecord to DB
     public void insertRecords(List<CompensationRecord> records){
         try{
             String sql = composeInsertSql();

@@ -14,7 +14,7 @@ import java.sql.Timestamp;
 public class  CompensationRecord {
 
     @JsonProperty("Timestamp")
-    @JsonFormat(pattern = "MM/dd/yyyy hh:mm:ss")
+    @JsonFormat(pattern = "MM/dd/yyyy hh:mm:ss") // convert "4/24/2019 04:43:21" to Timestamp
     private Timestamp recordTime;
     @JsonProperty("How old are you?")
     private String age;

@@ -20,6 +20,7 @@ public class JsonConvertor {
 
     private ObjectMapper obm = new ObjectMapper();
 
+    // This function is to convert Json file to java object
     public List<CompensationRecord> convertJsonToCompensationRecord(String filePath) {
         List<CompensationRecord> records = new ArrayList<>();
         try{

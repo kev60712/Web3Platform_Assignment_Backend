@@ -34,6 +34,11 @@ public class CompensationController {
 
     private ObjectMapper obm = new ObjectMapper();
 
+    /**
+     * All the query params is optional
+     * 1. To filter Compensation Records by age, industry, currency, location and workExperience
+     * 2. Sort by Specific cols
+     */
     @GetMapping("/compensationRecords")
     public ResponseEntity<Object> getCompensationRecords(@RequestParam(required = false) String age,
                                                @RequestParam(required = false) String industry,
@@ -52,6 +57,9 @@ public class CompensationController {
         }
     }
 
+    /**
+     * Query Single Record by firstName, lastName, Salary
+     */
     @GetMapping("/compensationRecord")
     public ResponseEntity<Object> getCompensationRecord(@RequestParam String fields) {
         try{
