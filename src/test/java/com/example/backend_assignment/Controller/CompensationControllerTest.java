@@ -25,8 +25,9 @@ public class CompensationControllerTest {
     @MockBean
     private CompensationService compensationService;
 
+    // To Test response is in JSON format
     @Test
-    public void testGetCompensationRecords() throws JsonProcessingException {
+    public void testGetCompensationRecords()  {
         CompensationRecord record1 = new CompensationRecord("24", "US","IT");
         CompensationRecord record2 = new CompensationRecord("28", "US","Accounting");
 
@@ -36,20 +37,20 @@ public class CompensationControllerTest {
         ResponseEntity response = compensationController.getCompensationRecords(null, "US", null, null, null, null);
 
         assertEquals(HttpStatus.ACCEPTED, response.getStatusCode());
-        assertEquals("[{\"age\":\"24\",\"industry\":\"US\",\"currency\":\"IT\"},{\"age\":\"28\",\"industry\":\"US\",\"currency\":\"Accounting\"}]",
+        assertEquals("[{\"How old are you?\":\"24\",\"What industry do you work in?\":\"US\",\"Please indicate the currency\":\"IT\"},{\"How old are you?\":\"28\",\"What industry do you work in?\":\"US\",\"Please indicate the currency\":\"Accounting\"}]",
                 response.getBody());
     }
 
     @Test
-    public void testGetCompensationRecord() throws JsonProcessingException {
-        CompensationRecord record = new CompensationRecord("24", "US","IT");
+    public void testGetCompensationRecord()  {
+        CompensationRecord record = new CompensationRecord("24", "IT","US");
         Mockito.when(compensationService.findRecordByFirstNameAndLastNameAndSalary(Mockito.anyString(), Mockito.anyString(), Mockito.anyString()))
                 .thenReturn(Optional.of(record));
 
         ResponseEntity response = compensationController.getCompensationRecord("Kevin,Liu,80000");
 
         assertEquals(HttpStatus.ACCEPTED, response.getStatusCode());
-        assertEquals("{\"age\":\"24\",\"industry\":\"IT\",\"currency\":\"US\"}",
+        assertEquals("{\"How old are you?\":\"24\",\"What industry do you work in?\":\"IT\",\"Please indicate the currency\":\"US\"}",
                 response.getBody());
     }
 

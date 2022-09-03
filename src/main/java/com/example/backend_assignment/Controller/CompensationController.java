@@ -5,6 +5,8 @@ import com.example.backend_assignment.Model.repo.CompensationRepo;
 import com.example.backend_assignment.Service.CompensationService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -21,6 +23,8 @@ import java.util.Optional;
 
 @RestController
 public class CompensationController {
+
+    private static Logger logger = LoggerFactory.getLogger(CompensationRepo.class);
 
     @Value("#{${db.compensation.query.column.variable.map}}")
     private Map<String, String> colVarMap;
@@ -43,7 +47,7 @@ public class CompensationController {
             String jsonStr = obm.writeValueAsString(compensationRecords);
             return new ResponseEntity<>(JsonSanitizer.sanitize(jsonStr), HttpStatus.ACCEPTED);
         }catch (Exception e){
-            // TODO: Set Return Error Msg Format
+            logger.error(String.format("[getCompensationRecords] error: %s", e.getMessage()));
             return new ResponseEntity<>(JsonSanitizer.sanitize("{}"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -64,7 +68,7 @@ public class CompensationController {
                 return new ResponseEntity<>(JsonSanitizer.sanitize("{}"), HttpStatus.ACCEPTED);
             }
         }catch (Exception e){
-            // TODO: Set Return Error Msg Format
+            logger.error(String.format("[getCompensationRecord] error: %s", e.getMessage()));
             return new ResponseEntity<>(JsonSanitizer.sanitize("{}"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

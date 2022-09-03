@@ -21,7 +21,7 @@ public class CompensationRepoTest {
     @Autowired
     private JsonConvertor jsonConvertor;
 
-    @Test
+    @Test // To Test Query Sql can be composed by different input.
     public void testComposeSql(){
         List<String> values = Arrays.asList("18", "IT", "US", "USA");
         String sort = "age";
